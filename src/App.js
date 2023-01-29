@@ -1,4 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
+import CourseInfo from "./CourseInfo";
 
 const samurajProgramowaniaCourses = [
   {
@@ -33,11 +34,12 @@ const samurajProgramowaniaCourses = [
 // }
 
 const coursesReducer = (state, action) => {
-  switch (action) {
+  console.log(action);
+  switch (action.type) {
     case "ADD":
       return;
     case "REMOVE":
-      return;
+      return state.filter((course) => course.id !== action.id);
     case "FETCH":
       return;
     default:
@@ -46,8 +48,11 @@ const coursesReducer = (state, action) => {
 };
 
 const App = () => {
-  const [state, dispatch] = useReducer(coursesReducer, []);
-  return <div>TEst</div>;
+  const [state, dispatch] = useReducer(coursesReducer, samurajProgramowaniaCourses);
+  const coursesElement = state.map((course) => (
+    <CourseInfo key={course.id} onClickHandler={dispatch} {...course} />
+  ));
+  return <div>{coursesElement}</div>;
 };
 
 export default App;

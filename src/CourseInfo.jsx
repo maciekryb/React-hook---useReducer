@@ -1,7 +1,18 @@
 import React from "react";
 
 const CourseInfo = ({ id, onClickHandler, title }) => {
-  return <div></div>;
+  const handleOnClick = () =>
+    onClickHandler({
+      id: id,
+      type: "REMOVE",
+    });
+
+  return (
+    <div>
+      <p>{title}</p>
+      <button onClick={handleOnClick}>Usun kurs</button>
+    </div>
+  );
 };
 
 export default CourseInfo;
