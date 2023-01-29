@@ -27,7 +27,26 @@ const samurajProgramowaniaCourses = [
   },
 ];
 
+//Obiekt akcji
+// {
+//   type: "ADD", // obowiązkowe
+// }
+
+const coursesReducer = (state, action) => {
+  switch (action) {
+    case "ADD":
+      return;
+    case "REMOVE":
+      return;
+    case "FETCH":
+      return;
+    default:
+      throw new Error("Oooops something went wrong! ");
+  }
+};
+
 const App = () => {
+  const [state, dispatch] = useReducer(coursesReducer, []);
   return <div>TEst</div>;
 };
 
