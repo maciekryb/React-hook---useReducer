@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useState } from "react";
 import CourseInfo from "./CourseInfo";
+import Form from "./Form";
 
 const samurajProgramowaniaCourses = [
   {
@@ -37,7 +38,7 @@ const coursesReducer = (state, action) => {
   console.log(action);
   switch (action.type) {
     case "ADD":
-      return;
+      return [...state, action.course];
     case "REMOVE":
       return state.filter((course) => course.id !== action.id);
     case "FETCH":
@@ -48,7 +49,7 @@ const coursesReducer = (state, action) => {
 };
 
 const fetchAsyncData = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 };
 
 const App = () => {
@@ -62,11 +63,19 @@ const App = () => {
   useEffect(() => {
     asyncFetch();
   }, []);
+  useEffect(() => {
+    console.log(state);
+  });
 
   const coursesElement = state.map((course) => (
     <CourseInfo key={course.id} onClickHandler={dispatch} {...course} />
   ));
-  return <div>{coursesElement}</div>;
+  return (
+    <div>
+      {coursesElement}
+      <Form addHandler={dispatch} />
+    </div>
+  );
 };
 
 export default App;
